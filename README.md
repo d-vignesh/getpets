@@ -1,0 +1,1 @@
+getpets -> A simple application to demonstrate standard package layout of go app
