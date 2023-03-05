@@ -1,0 +1,242 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "info:\ntitle: Pet API\ndescription: Spec Documentation for pet service.",
+    "title": "swagger: \"2.0\"",
+    "version": "1.0.0"
+  },
+  "host": "localhost:9096",
+  "basePath": "/",
+  "paths": {
+    "/pets": {
+      "get": {
+        "description": "provides the details of all pets",
+        "tags": [
+          "Pet"
+        ],
+        "operationId": "ListPets",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Category",
+            "description": "pet category to filter",
+            "name": "category",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ListPetsResponse"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      },
+      "post": {
+        "description": "add a new pet detail",
+        "tags": [
+          "Pet"
+        ],
+        "operationId": "AddPet",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Pet"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/SuccessRespWithoutData"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/pets/{id}": {
+      "get": {
+        "description": "provides the detail of the pet with the given id",
+        "tags": [
+          "Pet"
+        ],
+        "operationId": "GetPet",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID",
+            "description": "The id of the pet",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/GetPetResponse"
+          },
+          "400": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      },
+      "delete": {
+        "description": "delete the pet detail with given id",
+        "tags": [
+          "Pet"
+        ],
+        "operationId": "DeletePet",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID",
+            "description": "The id of the pet",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/SuccessRespWithoutData"
+          },
+          "400": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Contact": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string",
+          "x-go-name": "City"
+        },
+        "owner": {
+          "type": "string",
+          "x-go-name": "Owner"
+        },
+        "phone": {
+          "type": "string",
+          "x-go-name": "Phone"
+        },
+        "state": {
+          "type": "string",
+          "x-go-name": "State"
+        }
+      },
+      "x-go-package": "github.com/d-vignesh/getpets/pkg/domain"
+    },
+    "Pet": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Age"
+        },
+        "breed": {
+          "type": "string",
+          "x-go-name": "Breed"
+        },
+        "category": {
+          "type": "string",
+          "x-go-name": "Category"
+        },
+        "colors": {
+          "type": "string",
+          "x-go-name": "Colors"
+        },
+        "contact": {
+          "$ref": "#/definitions/Contact"
+        },
+        "gender": {
+          "type": "string",
+          "x-go-name": "Gender"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "x-go-name": "ID"
+        },
+        "price": {
+          "type": "number",
+          "format": "double",
+          "x-go-name": "Price"
+        }
+      },
+      "x-go-package": "github.com/d-vignesh/getpets/pkg/domain"
+    }
+  },
+  "responses": {
+    "ErrorResponse": {
+      "description": "model for error response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "x-go-name": "Msg"
+          }
+        }
+      }
+    },
+    "GetPetResponse": {
+      "description": "model for get pet response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/Pet"
+          },
+          "message": {
+            "type": "string",
+            "x-go-name": "Msg"
+          }
+        }
+      }
+    },
+    "ListPetsResponse": {
+      "description": "model for list pets response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Pet"
+            },
+            "x-go-name": "Data"
+          },
+          "message": {
+            "type": "string",
+            "x-go-name": "Msg"
+          }
+        }
+      }
+    }
+  }
+}

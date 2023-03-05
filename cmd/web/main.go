@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	_ "github.com/d-vignesh/getpets/docs"
 	"github.com/d-vignesh/getpets/mocks"
 	"github.com/d-vignesh/getpets/pkg/app"
 	"github.com/d-vignesh/getpets/pkg/db"

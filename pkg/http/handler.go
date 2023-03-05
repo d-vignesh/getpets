@@ -18,6 +18,12 @@ func NewHandler(svc domain.PetSvc) *Handler {
 	}
 }
 
+// swagger:route GET /pets/{id} Pet GetPet
+// provides the detail of the pet with the given id
+// responses:
+//   400: ErrorResponse
+//   500: ErrorResponse
+//   200: GetPetResponse
 func (h *Handler) GetPet(w http.ResponseWriter, r *http.Request) {
 	ID := r.Context().Value("id").(string)
 	fmt.Println("pet id : ", ID)
@@ -56,6 +62,11 @@ func (h *Handler) GetPet(w http.ResponseWriter, r *http.Request) {
 	respond(w, r, &resp)
 }
 
+// swagger:route GET /pets Pet ListPets
+// provides the details of all pets
+// responses:
+//   500: ErrorResponse
+//   200: ListPetsResponse
 func (h *Handler) ListPets(w http.ResponseWriter, r *http.Request) {
 	query := r.Context().Value(QUERY).(*ListPetsQuery)
 	pets, err := h.Svc.List(query.Category)
@@ -76,6 +87,11 @@ func (h *Handler) ListPets(w http.ResponseWriter, r *http.Request) {
 	respond(w, r, &resp)
 }
 
+// swagger:route POST /pets Pet AddPet
+// add a new pet detail
+// responses:
+//   500: ErrorResponse
+//   200: SuccessRespWithoutData
 func (h *Handler) AddPet(w http.ResponseWriter, r *http.Request) {
 	req := r.Context().Value(BODY).(*domain.Pet)
 	err := h.Svc.Create(req)
@@ -95,6 +111,12 @@ func (h *Handler) AddPet(w http.ResponseWriter, r *http.Request) {
 	respond(w, r, &resp)
 }
 
+// swagger:route DELETE /pets/{id} Pet DeletePet
+// delete the pet detail with given id
+// responses:
+//   400: ErrorResponse
+//   500: ErrorResponse
+//   200: SuccessRespWithoutData
 func (h *Handler) DeletePet(w http.ResponseWriter, r *http.Request) {
 	ID := r.Context().Value("id").(string)
 	fmt.Println("pet id : ", ID)
