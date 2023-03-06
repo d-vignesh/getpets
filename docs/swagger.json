@@ -237,6 +237,18 @@
           }
         }
       }
+    },
+    "SuccessRespWithoutData": {
+      "description": "model for add success response without data",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "x-go-name": "Msg"
+          }
+        }
+      }
     }
   }
 }

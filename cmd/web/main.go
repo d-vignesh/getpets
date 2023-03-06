@@ -44,5 +44,6 @@ func run(op string) error {
 	h := ihttp.NewHandler(svc)
 	r := chi.NewRouter()
 	ihttp.Routes(r, h)
-	return http.ListenAndServe(":6000", r)
+	fmt.Println("starting server")
+	return http.ListenAndServe(":9000", r)
 }

@@ -59,7 +59,7 @@ type AddPetRequest struct {
 }
 
 // model for add success response without data
-// swagger:parameters SuccessRespWithoutData
+// swagger:response SuccessRespWithoutData
 type SuccessRespWithoutData struct {
 	// in:body
 	Body struct {
